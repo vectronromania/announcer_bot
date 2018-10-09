@@ -1,15 +1,42 @@
-package announcer_bot
+package types
 
 import (
 	"fmt"
-
-	"github.com/bwmarrin/discordgo"
+	"time"
 )
 
-const prefix string = "!"
+const (
+	timezone                = "Europe/Bucharest"
+	Location *time.Location = time.LoadLocation(timezone)
+)
 
-type command struct {
-	name        string
-	params      string
-	param_count int
+type Attachment struct {
+	description string
+	link        string
+}
+
+type Announcement struct {
+	id       int
+	body     string
+	datetime time.Time
+	channels []string
+}
+
+type Task struct {
+	id          int
+	body        string
+	assignedto  []string
+	duedate     time.Time
+	attachments []attachment
+}
+
+type Reminder struct {
+	id       int
+	body     string
+	datetime time.Time
+	channels []string
+}
+
+func ExportAttachment(att Attachment) string {
+	return att.description + " : " + att.link
 }

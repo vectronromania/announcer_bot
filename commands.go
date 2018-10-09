@@ -1,10 +1,20 @@
-package announcer_bot
+package commands
 
 import (
 	"fmt"
 
 	"github.com/bwmarrin/discordgo"
 )
+
+const (
+	prefix string = "!"
+)
+
+type command struct {
+	name        string
+	params      string
+	param_count int
+}
 
 func onCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
 

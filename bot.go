@@ -7,12 +7,16 @@ import (
   "github.com/bwmarrin/discordgo"
 )
 
-var (
-  token string
+const (
+  token string = os.Getenv("DISCORD_BOT_TOKEN")
 )
 
+// var (
+//   token string
+// )
+
 func init() {
-  string = os.Getenv("DISCORD_BOT_TOKEN")
+  // token = os.Getenv("DISCORD_BOT_TOKEN")
 }
 
 func main() {
