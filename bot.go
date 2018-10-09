@@ -25,9 +25,14 @@ func main() {
     return
   }
 
+  // add handlers here
+  // discord.AddHandler(onCommand)
+
   err = discord.Open()
   if err != nil {
     fmt.Println("Error opening connection,", err.Error())
   }
+
+  fmt.Println("Bot is now running.")
 
 }
