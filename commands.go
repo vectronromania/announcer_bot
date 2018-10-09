@@ -16,9 +16,11 @@ type command struct {
 	param_count int
 }
 
-func onCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
+func OnCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
 
 	if message.Author.ID == session.State.User.ID {
 		return
 	}
 }
+
+func CheckIfCommand()
