@@ -1,6 +1,6 @@
-FROM golang:1.8
+FROM golang:latest
 
-ADD . "~/go/src/github.com/cezarmathe/announcer_bot"
+COPY . "~/go/src/github.com/cezarmathe/announcer_bot"
 
 RUN go install github.com/cezarmathe/announcer_bot
 

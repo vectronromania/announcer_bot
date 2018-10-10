@@ -3,42 +3,41 @@ package main
 import (
   "fmt"
   "os"
+  "os/signal"
+  "syscall"
 
-  // "github.com/bwmarrin/discordgo"
+  "github.com/cezarmathe/announcer_bot/commands"
+  // "github.com/cezarmathe/announcer_bot/types"
 
-  "github.com/cezarmathe/announcer_bot/types"
+  "github.com/bwmarrin/discordgo"
 )
 
 var (
-  token string = os.Getenv("DISCORD_BOT_TOKEN")
+// token string = os.Getenv("DISCORD_BOT_TOKEN")
 )
-
-func init() {
-  // token = os.Getenv("DISCORD_BOT_TOKEN")
-}
 
 func main() {
 
-  // init()
+  discord, err := discordgo.New("Bot " + token)
+  if err != nil {
+    fmt.Println("Error creating a Discord session,", err.Error())
+    return
+  }
 
-  // discord, err := discordgo.New("Bot " + token)
-  // if err != nil {
-  //   fmt.Println("Error creating a Discord session,", err.Error())
-  //   return
-  // }
+  // add handlers here
+  discord.AddHandler(commands.OnCommand)
 
-  // // add handlers here
-  // // discord.AddHandler(onCommand)
+  err = discord.Open()
+  if err != nil {
+    fmt.Println("Error opening connection,", err.Error())
+  }
 
-  // err = discord.Open()
-  // if err != nil {
-  //   fmt.Println("Error opening connection,", err.Error())
-  // }
+  fmt.Println("Bot is now running.  Press CTRL-C to exit.")
+  sc := make(chan os.Signal, 1)
+  signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+  <-sc
 
-  fmt.Println("Bot is now running.")
-
-  attachment := types.NewAttachment("a description", "a link")
-
-  fmt.Println(attachment.Export())
+  // Cleanly close down the Discord session.
+  discord.Close()
 
 }
