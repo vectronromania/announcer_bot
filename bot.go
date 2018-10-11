@@ -7,7 +7,6 @@ import (
   "syscall"
 
   "github.com/cezarmathe/announcer_bot/commands"
-  // "github.com/cezarmathe/announcer_bot/types"
 
   "github.com/bwmarrin/discordgo"
 )

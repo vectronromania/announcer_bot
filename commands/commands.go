@@ -7,20 +7,6 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-const (
-	prefix string = "!"
-
-	id_announcements string = "485516381014458389"
-	id_tasks         string = "499632407251517451"
-	id_reminders     string = "499632385000734743"
-)
-
-type command struct {
-	Name       string
-	Params     []string
-	Paramcount int
-}
-
 // function that checks if a message is a command
 func checkcommand(session *discordgo.Session, message *discordgo.MessageCreate) bool {
 

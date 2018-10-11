@@ -1,4 +1,4 @@
-package types
+package commands
 
 import (
 	// "fmt"
@@ -7,11 +7,23 @@ import (
 
 const (
 	timezone string = "Europe/Bucharest"
+
+	prefix string = "!"
+
+	id_announcements string = "485516381014458389"
+	id_tasks         string = "499632407251517451"
+	id_reminders     string = "499632385000734743"
 )
 
 var (
 	Location, err = time.LoadLocation(timezone)
 )
+
+type command struct {
+	Name       string
+	Params     []string
+	Paramcount int
+}
 
 type Attachment struct {
 	description string
