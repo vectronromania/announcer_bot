@@ -7,6 +7,20 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+const (
+	prefix string = "!"
+
+	id_announcements string = "485516381014458389"
+	id_tasks         string = "499632407251517451"
+	id_reminders     string = "499632385000734743"
+)
+
+type command struct {
+	Name       string
+	Params     []string
+	Paramcount int
+}
+
 // function that checks if a message is a command
 func checkcommand(session *discordgo.Session, message *discordgo.MessageCreate) bool {
 
@@ -30,10 +44,17 @@ func makecommand(input string) command {
 	var thisisacommand command
 
 	thisisacommand.Name = fields[0]
-	for i := 1; i < len(fields); i++ {
-		thisisacommand.Params[i-1] = fields[i]
+
+	if len(fields) > 1 {
+		params = make([]string, len(fields)-1)
+		for i := 0; i < len(params); i++ {
+			params[i] = fields[i+1]
+		}
+		thisisacommand.Params = params
+		thisisacommand.Paramcount = len(params)
+	} else {
+		thisisacommand.Paramcount = 0
 	}
-	thisisacommand.Paramcount = len(thisisacommand.Params)
 
 	return thisisacommand
 
@@ -50,5 +71,34 @@ func OnCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
 
 	fmt.Println("Received command " + command.Name)
 
-	session.ChannelMessageSend(message.ChannelID, "This was a command.")
+	switch command.Name {
+
+	case "announcement":
+		go announcement(command)
+
+	case "task":
+		go task(command)
+
+	case "reminder":
+		go reminder(command)
+
+	case "help":
+		go help(command)
+
+	default:
+		go unknown(command)
+
+	}
+
+	// 	session.ChannelMessageSend(message.ChannelID, "This was a command.")
+}
+
+// function that sends useful information about the bot
+func help(payload command) {
+
+}
+
+// function that handles unknown commands
+func unknown(payload command) {
+
 }
