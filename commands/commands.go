@@ -7,20 +7,6 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-const (
-	prefix string = "!"
-
-	id_announcements string = "485516381014458389"
-	id_tasks         string = "499632407251517451"
-	id_reminders     string = "499632385000734743"
-)
-
-type command struct {
-	Name       string
-	Params     []string
-	Paramcount int
-}
-
 // function that checks if a message is a command
 func checkcommand(session *discordgo.Session, message *discordgo.MessageCreate) bool {
 
@@ -46,7 +32,7 @@ func makecommand(input string) command {
 	thisisacommand.Name = fields[0]
 
 	if len(fields) > 1 {
-		params = make([]string, len(fields)-1)
+		params := make([]string, len(fields)-1)
 		for i := 0; i < len(params); i++ {
 			params[i] = fields[i+1]
 		}
@@ -74,16 +60,19 @@ func OnCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
 	switch command.Name {
 
 	case "announcement":
-		go announcement(command)
+		// go announcement(command)
 
 	case "task":
-		go task(command)
+		// go task(co?mand)
 
 	case "reminder":
-		go reminder(command)
+		// go reminder(command)
 
 	case "help":
 		go help(command)
+
+	case "test":
+		go embed(session, message.ChannelID)
 
 	default:
 		go unknown(command)
