@@ -23,7 +23,6 @@ func main() {
     return
   }
 
-  // add handlers here
   discord.AddHandler(commands.OnCommand)
 
   err = discord.Open()
