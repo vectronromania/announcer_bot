@@ -1,0 +1,46 @@
+{
+  "help": {
+    "announcement": {
+      "new": {
+        "description" : "",
+        "help" : ""
+      },
+      "delete" : {
+        "description" : "",
+        "help" : ""
+      },
+      "send" : {
+        "description" : "",
+        "help" : ""
+      }
+    },
+    "task" : {
+      "new": {
+        "description" : "",
+        "help" : ""
+      },
+      "delete" : {
+        "description" : "",
+        "help" : ""
+      },
+      "send" : {
+        "description" : "",
+        "help" : ""
+      }
+    },
+    "reminder" : {
+      "new": {
+        "description" : "",
+        "help" : ""
+      },
+      "delete" : {
+        "description" : "",
+        "help" : ""
+      },
+      "send" : {
+        "description" : "",
+        "help" : ""
+      }
+    }
+  }
+}

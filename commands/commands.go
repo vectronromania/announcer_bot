@@ -32,8 +32,9 @@ type command struct {
 	Name        string
 	Params      []string
 	Paramcount  int
-	ChanelID    string
-	SessionInfo discordgo.Session
+	ChannelID   string
+	SessionInfo *discordgo.Session
+	UserID      string
 }
 
 // Function that checks if a message is a command
@@ -71,8 +72,9 @@ func makecommand(session *discordgo.Session, message *discordgo.MessageCreate) c
 		thisisacommand.Paramcount = 0
 	}
 
-	thisisacommand.ChanelID = message.ChannelID
-	thisisacommand.SessionInfo = *session
+	thisisacommand.ChannelID = message.ChannelID
+	thisisacommand.SessionInfo = session
+	thisisacommand.UserID = message.Author.ID
 
 	return thisisacommand
 
@@ -92,11 +94,15 @@ func OnCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
 	// Check for the command and call it's handler
 	switch command.Name {
 
+	case "kys":
+		sendsimple(session, message.ChannelID, "Killing myself.")
+		session.Close()
+
 	case "announcement":
-		// go announcement(command)
+		go announcement(command)
 
 	case "task":
-		// go task(co?mand)
+		// go task(command)
 
 	case "reminder":
 		// go reminder(command)
@@ -104,21 +110,27 @@ func OnCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
 	case "help":
 		go help(command)
 
-	case "test":
-		go embed(session, message.ChannelID)
-
 	default:
 		go unknown(command)
 
 	}
 }
 
-// Function that sends useful information about the bot
-func help(payload command) {
-
-}
-
 // Function that handles unknown commands
 func unknown(payload command) {
 
+	var completesstring string = "Unknown command: " + payload.Name + " "
+
+	for _, cmd := range payload.Params {
+		completesstring += cmd
+		completesstring += " "
+	}
+
+	umsg := discordgo.MessageEmbed{
+		Title:       "Unknown command",
+		Description: completesstring,
+		Color:       0xff0000,
+	}
+
+	sendembed(payload.SessionInfo, payload.ChannelID, &umsg)
 }
