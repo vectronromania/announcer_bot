@@ -16,7 +16,8 @@ const (
 	prefix string = "_"
 
 	// Channel IDs for the channels where this bot is going to send messages
-	id_announcements string = "485516381014458389"
+	// id_announcements string = "485516381014458389"
+	id_announcements string = "498896307449102355"
 	id_tasks         string = "499632407251517451"
 	id_reminders     string = "499632385000734743"
 )
@@ -24,7 +25,8 @@ const (
 var (
 	// Loading the location from the timezone
 	// Make sure your timezone is according to the standards, otherwise the bot will crash
-	Location, err = time.LoadLocation(timezone)
+	Location, err        = time.LoadLocation(timezone)
+	TimeLayout    string = time.RFC1123Z
 )
 
 // A type that acts as a container for a command
